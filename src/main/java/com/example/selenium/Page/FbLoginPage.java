@@ -3,20 +3,21 @@ package com.example.selenium.Page;
 import com.example.selenium.Utils.Locators;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
 
 @Slf4j
 public class FbLoginPage {
     private WebDriver driver;
-    private WebDriverWait wait;
+    private FluentWait<WebDriver> wait;
     private Actions actions;
 
     @FindBy(how = How.XPATH, using = Locators.FIRST_NAME_FIELD_XPATH)
@@ -27,6 +28,8 @@ public class FbLoginPage {
 
     @FindBy(how = How.XPATH, using = Locators.EMAIL_FIELD_XPATH)
     private WebElement emailField;
+    @FindBy(how = How.XPATH, using = Locators.EMAIL_CONFIRMATION_FIELD_XPATH)
+    private WebElement emailConfirmationField;
 
     @FindBy(how = How.XPATH, using = Locators.PASSWORD_FIELD_XPATH)
     private WebElement passwordField;
@@ -48,7 +51,10 @@ public class FbLoginPage {
 
     public FbLoginPage(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(30))
+                .pollingEvery(Duration.ofMillis(500))
+                .ignoring(NoSuchElementException.class);
         actions = new Actions(driver);
     }
 
@@ -65,6 +71,11 @@ public class FbLoginPage {
     public void enterEmail(String email) {
         wait.until(ExpectedConditions.visibilityOf(emailField));
         emailField.sendKeys(email);
+    }
+
+    public void enterEmailConfirmation(String email) {
+        wait.until(ExpectedConditions.visibilityOf(emailConfirmationField));
+        emailConfirmationField.sendKeys(email);
     }
 
     public void enterPassword(String password) {
@@ -85,24 +96,23 @@ public class FbLoginPage {
     }
 
     private void selectOption(WebElement field, String optionLocator, String value) {
-        wait.until(ExpectedConditions.visibilityOf(field));
+        log.warn("Selected option 1: " + optionLocator);
+        wait.until(ExpectedConditions.elementToBeClickable(field));
         actions.moveToElement(field).click().perform();
-        WebElement option = driver.findElement(By.xpath(String.format(optionLocator, value)));
+        log.warn("Selected option 2: " + optionLocator);
+        WebElement option = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(optionLocator, value))));
         option.click();
     }
 
     public void selectGender() {
         wait.until(ExpectedConditions.visibilityOf(genderRadioButton));
-        genderRadioButton.click();
+        actions.click(genderRadioButton).perform();
     }
 
     public void clickSubmitButton() {
-        wait.until(ExpectedConditions.visibilityOf(submitButton));
-        submitButton.click();
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        log.info("inside clickSubmitButton methode" );
+        wait.until(ExpectedConditions.elementToBeClickable(submitButton)).click();
+        log.info("Clicked submit button");
+        //wait.until(ExpectedConditions.invisibilityOf(submitButton));
     }
 }

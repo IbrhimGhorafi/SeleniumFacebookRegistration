@@ -24,6 +24,7 @@ public class FbLoginTest extends TestBase {
             fbLoginPage.enterFirstName(userData.get("firstName"));
             fbLoginPage.enterLastName(userData.get("lastName"));
             fbLoginPage.enterEmail(userData.get("email"));
+            //fbLoginPage.enterEmailConfirmation(userData.get("email"));
             fbLoginPage.enterPassword(userData.get("password"));
             fbLoginPage.selectDayOfBirth(userData.get("dayOfBirth"));
             fbLoginPage.selectMonthOfBirth(userData.get("monthOfBirth"));
@@ -34,4 +35,6 @@ public class FbLoginTest extends TestBase {
             log.info("No data found in CSV file.");
         }
     }
+
+
 }

@@ -65,7 +65,7 @@ public class CustomListener implements ITestListener {
     private String takeScreenshot(String testName) {
         try {
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-            String screenshotName = "screenshots/" + testName + "_" + timestamp + ".png";
+            String screenshotName = "" + testName + "_" + timestamp + ".png";
             TakesScreenshot ts = (TakesScreenshot) driver;
             byte[] screenshotBytes = ts.getScreenshotAs(OutputType.BYTES);
             FileUtils.saveBytesToFile(screenshotBytes, screenshotName);

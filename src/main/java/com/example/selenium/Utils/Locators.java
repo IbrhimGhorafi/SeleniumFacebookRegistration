@@ -27,7 +27,9 @@ public class Locators {
     public static final String SELECT_GENERAL_INTEREST = "//select[contains(@name,'general_interest')]";
     public static final String SELECT_PRODUCT_INTEREST = "//select[contains(@name,'product_interest')]";
     public static final String SUBSCRIBE_BUTTON = "//button[contains(@aria-label,'Sign Up')]";
-    public static final String COUNTRY_OPTION_XPATH = SELECT_COUNTRY + "//option[text()='%s']";
+    public static final String COUNTRY_OPTION_XPATH = "//option[text()='%s']";
     public static final String GENERAL_INTEREST_OPTION_XPATH = SELECT_GENERAL_INTEREST + "//option[text()='%s']";
     public static final String PRODUCT_INTEREST_OPTION_XPATH = SELECT_PRODUCT_INTEREST + "//option[text()='%s']";
+    public static final String SELECT_COUNTRY_CURRENCY_SHOPPING = "//header//span[contains(text(),'Change')]";
+    public static final String POPUP_MESSAGE_SUCCESS_OF_SUBSCRIBE = "//div[text()='Thank you for your subscription.']";
 }

@@ -35,8 +35,11 @@ public class HomePage {
     @FindBy(how = How.XPATH, using = Locators.SUBSCRIBE_BUTTON)
     private WebElement subscribeButton;
 
-    @FindBy(how = How.XPATH, using = "//header//span[contains(text(),'Change')]")
+    @FindBy(how = How.XPATH, using = Locators.SELECT_COUNTRY_CURRENCY_SHOPPING)
     private WebElement changeDestination;
+
+    @FindBy(how = How.XPATH, using = Locators.POPUP_MESSAGE_SUCCESS_OF_SUBSCRIBE)
+    private WebElement messageSuccessSubscribe;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -71,25 +74,25 @@ public class HomePage {
     }
 
     public void subscribeButton() {
-        wait.until(ExpectedConditions.visibilityOf(subscribeButton));
-        actions.moveToElement(subscribeButton).click(subscribeButton).perform();
+        wait.until(ExpectedConditions.elementToBeClickable(subscribeButton)).click();
     }
 
     public void changeDestination() {
         wait.until(ExpectedConditions.visibilityOf(changeDestination));
         actions.moveToElement(changeDestination).click(changeDestination).perform();
-        //changeDestination.click();
+    }
+
+    public String messageOfSuccessSubscribe(){
+        WebElement successMessage = wait.until(ExpectedConditions.visibilityOf(messageSuccessSubscribe));
+        String message= successMessage.getText();
+        return message;
     }
 
     private void selectOption(WebElement field, String optionLocator, String value) {
-        wait.until(ExpectedConditions.elementToBeClickable(field));
-        log.info("1");
         actions.moveToElement(field).click().perform();
-        log.info("2");
         WebElement option = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(optionLocator, value))));
-        log.info("3");
         option.click();
-        log.info("4");
     }
+
 
 }

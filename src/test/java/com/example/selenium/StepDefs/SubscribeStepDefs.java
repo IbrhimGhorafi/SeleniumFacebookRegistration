@@ -136,16 +136,17 @@ public class SubscribeStepDefs {
         }
     }
 
-//    private static ChromeOptions getChromeOptions() {
-//        ChromeOptions browserOptions = new ChromeOptions();
-//        browserOptions.setPlatformName("Windows 10");
-//        browserOptions.setBrowserVersion("124");
-//        Map<String, Object> sauceOptions = new HashMap<>();
-//        sauceOptions.put("username", "oauth-ibrahim.ghorafi-5876c");
-//        sauceOptions.put("accessKey", "a4b582b8-2a4b-4234-87f2-fe65fec55de0");
-//        sauceOptions.put("build", "your_build_id");
-//        sauceOptions.put("name", "facebook_login_registration_test");
-//        browserOptions.setCapability("sauce:options", sauceOptions);
-//        return browserOptions;
-//    }
+
+    private static ChromeOptions getChromeOptions() {
+        ChromeOptions browserOptions = new ChromeOptions();
+        browserOptions.setPlatformName("Windows 10");
+        browserOptions.setBrowserVersion("124");
+        Map<String, Object> sauceOptions = new HashMap<>();
+        sauceOptions.put("username", "oauth-ibrahim.ghorafi-5876c");
+        sauceOptions.put("accessKey", "a4b582b8-2a4b-4234-87f2-fe65fec55de0");
+        sauceOptions.put("build", "your_build_id");
+        sauceOptions.put("name", "facebook_login_registration_test");
+        browserOptions.setCapability("sauce:options", sauceOptions);
+        return browserOptions;
+    }
 }
